@@ -7,6 +7,11 @@ export interface CarProps {
     year: string
     price: string
     user_id?: string
+    User: {
+        first_name: string
+        last_name: string
+        phone: string
+    }
 }
 
 export interface UserProps {
@@ -19,9 +24,5 @@ export interface UserProps {
 }
 
 export interface UserDataProps {
-    id: number
-    firstName: string
-    lastName: string
-    email: string
-    createdAt: string
+    userId: number
 }

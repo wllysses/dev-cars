@@ -8,7 +8,7 @@ import { UserDataProps } from '../../interfaces'
 
 export function RegisterVehicle() {
 
-    const [userData] = useState(JSON.parse(localStorage.getItem('@token') as string) as UserDataProps)
+    const [userData] = useState(JSON.parse(localStorage.getItem('@USER_DATA') as string) as UserDataProps)
 
     const registerCarSchema = z.object({
         name: z.string().nonempty('Preencha o campo.'),
@@ -21,16 +21,16 @@ export function RegisterVehicle() {
 
     type RegisterCarSchema = z.infer<typeof registerCarSchema>
 
-    const { register, handleSubmit, formState: { errors } } = useForm<RegisterCarSchema>({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<RegisterCarSchema>({
         resolver: zodResolver(registerCarSchema)
     })
 
     async function handleCarRegister(data: RegisterCarSchema) {
         const postCar = await api.post('/cars', { 
-            user_id: userData.id,
+            user_id: userData.userId,
             name: data.name,
             brand: data.brand,
-            price: data.price,
+            price: Number(data.price),
             img_url: data.img_url,
             color: data.color,
             year: data.year
@@ -41,6 +41,7 @@ export function RegisterVehicle() {
         }
 
         toast.success(postCar.data.message)
+        reset()
     }
 
     return (

@@ -1,17 +1,17 @@
-import { CarProps, UserDataProps } from '../../interfaces'
-import { Card } from '../Card'
 import { useEffect, useState } from 'react'
 import { api } from '../../services/api'
+import { CarProps, UserDataProps } from '../../interfaces'
+import { Card } from '../Card'
 
 export function MyVehicles() {
 
-    const [userData] = useState(JSON.parse(localStorage.getItem('@token') as string) as UserDataProps)
-
     const [cars, setCars] = useState<CarProps[]>([])
 
+    const [userData] = useState(JSON.parse(localStorage.getItem('@USER_DATA') as string) as UserDataProps)
+
     useEffect(() => {
-        api.post('/cars/user' , { user_id: userData.id }).then(resp => setCars(resp.data))
-    }, [])
+        api.get(`/cars/users/${userData.userId}`).then(resp => setCars(resp.data))
+    }, [userData.userId])
 
     return (
         <div className="w-full flex flex-col gap-4 px-8 py-16">
@@ -22,7 +22,7 @@ export function MyVehicles() {
                 {
                     cars &&
                     cars.map((car) => (
-                        <Card key={car.id} car={car}/>
+                        <Card key={car.id} car={car} type="internal" />
                     ))
                 }
             </div>

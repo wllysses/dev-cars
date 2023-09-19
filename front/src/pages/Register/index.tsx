@@ -13,6 +13,7 @@ export function Register() {
         firstName: z.string().nonempty('Campo obrigatório.'),
         lastName: z.string().nonempty('Campo obrigatório.'),
         email: z.string().nonempty('Campo obrigatório.').email('Formato de e-mail inválido.'),
+        phone: z.string().nonempty('Campo obrigatório'),
         password: z.string().nonempty('Campo obrigatório.').min(5, 'Mínimo 5 caracteres.'),
         confirmPassword: z.string().nonempty('Campo obrigatório.').min(5, 'Mínimo 5 caracteres.'),
         terms: z.literal(true, {
@@ -34,7 +35,8 @@ export function Register() {
             {   
                 first_name: data.firstName, 
                 last_name: data.lastName, 
-                email: data.email, 
+                email: data.email,
+                phone: data.phone,
                 password: data.password, 
                 confirm_password: data.confirmPassword 
             }
@@ -83,16 +85,29 @@ export function Register() {
                                 { errors.lastName && <ErrorMessage message={errors.lastName.message} /> }
                             </div>
                         </div>
-                        <div>
-                            <label htmlFor="inputEmail">E-mail</label>
-                            <input 
-                                type="email" 
-                                id="inputEmail" 
-                                className="w-full border rounded p-2" 
-                                placeholder="E-mail" 
-                                { ...register('email') }
-                            />
-                            { errors.email && <ErrorMessage message={errors.email.message} /> }
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="flex flex-col">
+                                <label htmlFor="inputEmail">E-mail</label>
+                                <input 
+                                    type="email" 
+                                    id="inputEmail" 
+                                    className="w-full border rounded p-2" 
+                                    placeholder="E-mail" 
+                                    { ...register('email') }
+                                />
+                                { errors.email && <ErrorMessage message={errors.email.message} /> }
+                            </div>
+                            <div className="flex flex-col">
+                                <label htmlFor="inputEmail">Telefone</label>
+                                <input 
+                                    type="tel" 
+                                    id="inputPhone" 
+                                    className="w-full border rounded p-2" 
+                                    placeholder="Telefone" 
+                                    { ...register('phone') }
+                                />
+                                { errors.phone && <ErrorMessage message={errors.phone.message} /> }
+                            </div>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex flex-col">

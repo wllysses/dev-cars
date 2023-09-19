@@ -30,7 +30,7 @@ export function Login() {
         }
 
         toast.success(fetchData.data.message) //Pop-up de notificação
-        localStorage.setItem('@token', JSON.stringify(fetchData.data.user)) // Salva as informações do usuário no storage
+        localStorage.setItem('@USER_DATA', JSON.stringify(fetchData.data.user)) // Salva as informações do usuário no storage
         navigate('/dashboard') // Redireciona para a próxima rota
     }
     

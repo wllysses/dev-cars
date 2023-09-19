@@ -22,6 +22,7 @@ export function Home() {
                     <h2 className="text-3xl font-semibold">Veículos anunciados</h2>
 
                     <div className="mt-5 flex flex-wrap items-center gap-8 px-2">
+                        { !cars.length && <span>Nenhum veículo cadastrado.</span> }
                         {
                             cars &&
                             cars.map((car, index) => (
